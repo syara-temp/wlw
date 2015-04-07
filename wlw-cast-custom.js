@@ -79,20 +79,19 @@ if (d.cookie) {
 	}
 }
 
-if (cd[1]!=pcd[1] || cd[2]!=pcd[2]) {
+// 使用率、勝利数、キャスト別評価(平均)、勝利時(平均)、敗北時(平均)で比較
+if (cd[1]!=pcd[1] || cd[2]!=pcd[2] || cd[8]!=pcd[8] || cd[9]!=pcd[9] || cd[10]!=pcd[10]) {
 	d.cookie = ci + "=" + escape(cd.join(":")) + "; expires=" + ex.toUTCString();
 }
 
 // 24:00を起点として比較する
-var cd0 = new Date(cd[0]);
-cd0.setHours(0);
-cd0.setMinutes(0);
-cd0.setSeconds(0);
-var pcd0 = new Date(pcd[0]);
-pcd0.setHours(0);
-pcd0.setMinutes(0);
-pcd0.setSeconds(0);
-if ((cd0-pcd0)>=day) {
+var base = new Date();
+base.setTime(pcd[0]);
+base.setDate(base.getDate() + 1);
+base.setHours(0);
+base.setMinutes(0);
+base.setSeconds(0);
+if (now > base.getTime()) {
 	d.cookie = pci + "=" + escape(pcd.join(":")) + "; expires=" + ex.toUTCString();
 } else {
 	pcd = ppcd;
