@@ -54,15 +54,15 @@ var pci = "p" + ci;
 // 日時情報、使用率、勝利数、敗北数、勝率、総撃破数、総撤退数、Kill Ratio、
 // キャスト別評価(平均)、勝利時(平均)、敗北時(平均)、
 // 獲得ナイス(平均)、勝利時(平均)、敗北時(平均)
-var now = new Date();
-var cd = [now.getTime(), ur, wc, lc, wr, crc, wdc, kr, tp, wp, lp, tn, wn, ln];
+var now = new Date().getTime();
+var cd = [now, ur, wc, lc, wr, crc, wdc, kr, tp, wp, lp, tn, wn, ln];
 var pcd = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 var ppcd = pcd.concat();
 
 var day = 1000*3600*24;
 // Cookieの有効期限(365日間)
 var ex = new Date();
-ex.setTime(cd[0]+day*365);
+ex.setTime(now+day*365);
 
 // Cookieの読み込み
 // 前回のキャストデータを取得
@@ -83,11 +83,16 @@ if (cd[1]!=pcd[1] || cd[2]!=pcd[2]) {
 	d.cookie = ci + "=" + escape(cd.join(":")) + "; expires=" + ex.toUTCString();
 }
 
-// メンテナンス時間が5:00-7:00なので、6:00を起点とする
-now.setHours(6);
-now.setMinutes(0);
-now.setSeconds(0);
-if (now.getTime()>pcd[0]) {
+// 24:00を起点として比較する
+var cd0 = new Date(cd[0]);
+cd0.setHours(0);
+cd0.setMinutes(0);
+cd0.setSeconds(0);
+var pcd0 = new Date(pcd[0]);
+pcd0.setHours(0);
+pcd0.setMinutes(0);
+pcd0.setSeconds(0);
+if ((cd0-pcd0)>=day) {
 	d.cookie = pci + "=" + escape(pcd.join(":")) + "; expires=" + ex.toUTCString();
 } else {
 	pcd = ppcd;
