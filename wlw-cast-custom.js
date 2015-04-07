@@ -87,10 +87,9 @@ if (cd[1]!=pcd[1] || cd[2]!=pcd[2] || cd[8]!=pcd[8] || cd[9]!=pcd[9] || cd[10]!=
 // 24:00を起点として比較する
 var base = new Date();
 base.setTime(pcd[0]);
-base.setDate(base.getDate() + 1);
-base.setHours(0);
-base.setMinutes(0);
-base.setSeconds(0);
+base.setHours(23);
+base.setMinutes(59);
+base.setSeconds(59);
 if (now > base.getTime()) {
 	d.cookie = pci + "=" + escape(pcd.join(":")) + "; expires=" + ex.toUTCString();
 } else {
