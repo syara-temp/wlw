@@ -9,7 +9,7 @@ WLWブックマークレット
 * 勝率など通常では表示されない項目の表示する機能※1  
 * プレイ結果による各項目の差分を表示する機能※2  
 ※1: 勝利数、キャスト別評価から計算した結果なので、正確な数値でない可能性があります。  
-※2: Cookieに前回のブックマークレットの実行時を記録し、差分を計算して表示しています。
+※2: Cookieに前回のブックマークレットの実行結果を記録し、差分を計算して表示しています。
 
 ## 注意制限
 
@@ -28,7 +28,7 @@ WLWブックマークレット
 次の手順で、ブックマークを登録してください。
 
 1. 適当なブックマークを作成します。
-2. ブックマークの編集でURL部分を次のように書き換えてください。記述ミスを防止するため、コピー&ペーストを推奨します。  
+2. ブックマークの編集でURL部分を次のように書き換えてください。記述ミスを防止するため、コピー&ペーストを推奨します。
 ```
 javascript:(function(d,s){s=d.createElement('script');s.src='https://cdn.rawgit.com/syara-temp/wlw/1.0/wlw-cast-custom.min.js';d.body.appendChild(s);})(document)
 ```
@@ -52,4 +52,4 @@ javascript:(function(d,s){s=d.createElement('script');s.src='https://cdn.rawgit.
 ## 著者
 
 Wonderland Wars ワンダーランドウォーズ  
-32ページ目 > [833](https://github.com/syara-temp/wlw)
+32ページ目 > [833 ID:GUHfLX0k0](https://github.com/syara-temp/wlw)
