@@ -29,7 +29,9 @@ WLWブックマークレット
 
 1. 適当なブックマークを作成します。
 2. ブックマークの編集でURL部分を次のように書き換えてください。記述ミスを防止するため、コピー&ペーストを推奨します。  
-> javascript:(function(d,s){s=d.createElement('script');s.src='https://cdn.rawgit.com/syara-temp/wlw/1.0/wlw-cast-custom.min.js';d.body.appendChild(s);})(document)
+```
+javascript:(function(d,s){s=d.createElement('script');s.src='https://cdn.rawgit.com/syara-temp/wlw/1.0/wlw-cast-custom.min.js';d.body.appendChild(s);})(document)
+```
 3. [Wonderland.NET](https://wonderland-wars.net/)にアクセスし、マイキャスト> (キャスト選択)で全国対戦プレイデータの画面を表示してください。
 4. 手順1,2で作成したブックマークを実行してください。※5,6  
 ※5: 本手順は、差分を表示する機能の準備手順のため、スキップすることもできます。  
