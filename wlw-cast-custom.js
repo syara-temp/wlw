@@ -42,6 +42,10 @@ var kr = 0;
 if (wdc!=0) {
 	kr = Math.round(crc/wdc*100)/100;
 }
+// 全体勝利数 ... all win count
+var awc = 0;
+// 全体敗北数 ... all lose count
+var alc = 0;
 
 // キャストID ... cast id
 // 文字数圧縮のため、パラメータはcastを前提とする
@@ -70,13 +74,26 @@ if (d.cookie) {
 	var c = d.cookie.split(";");
 	for (var i = 0; i < c.length; i++) {
 		var kv = c[i].trim().split("=");
+		var tpcd = unescape(kv[1]).split(":");
+		if (isFinite(kv[0])) {
+			awc += parseInt(tpcd[2]);
+			alc += parseInt(tpcd[3]);
+		}
 		if (kv[0] == ci) {
-			pcd = unescape(kv[1]).split(":");
+			pcd = tpcd;
 		}
 		if (kv[0] == pci) {
 			ppcd = unescape(kv[1]).split(":");
 		}
 	}
+}
+
+// 全体勝率 ... all win rate
+var awr = 0;
+awc = awc - parseInt(pcd[2]) + wc;
+alc = alc - parseInt(pcd[3]) + lc;
+if ((awc+alc)!=0) {
+	awr = Math.round(awc/(awc+alc)*100*10)/10;
 }
 
 // 使用率、勝利数、キャスト別評価(平均)、勝利時(平均)、敗北時(平均)で比較
@@ -111,6 +128,7 @@ function insert(i, t1, t2) {
 insert(2,"敗北数",lc+"<span class=\"font_small\">敗</span>");
 insert(2,"勝率",wr+"%");
 insert(4,"Kill Ratio",kr);
+insert(4,"全体勝率",awr+"%");
 function diff(i, t) {
 	var iad = Math.round((cd[i]-pcd[i])*100)/100;
 	var pm = "±";
