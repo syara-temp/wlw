@@ -42,6 +42,8 @@ WLWブックマークレット
 
 * 手順1. 適当なブックマークを作成します。
 * 手順2. ブックマークの編集でURL部分を次のように書き換えてください。記述ミスを防止するため、コピー&ペーストを推奨します。  
+
+(2015.04.21 Updated)  
 ```
 javascript:(function(d,s){s=d.createElement('script');s.src='https://cdn.rawgit.com/syara-temp/wlw/1.1/wlw-cast-custom.min.js';d.body.appendChild(s);})(document)
 ```
