@@ -88,9 +88,11 @@ if (d.cookie) {
 	}
 }
 
-// 全体勝率 ... all win rate
+// 全キャスト勝率 ... all win rate
 var awr = 0;
+// 全キャスト勝利数 ... all win count
 awc = awc - parseInt(pcd[2]) + wc;
+// 全キャスト敗北数 ... all lose count
 alc = alc - parseInt(pcd[3]) + lc;
 if ((awc+alc)!=0) {
 	awr = Math.round(awc/(awc+alc)*100*10)/10;
@@ -128,7 +130,7 @@ function insert(i, t1, t2) {
 insert(2,"敗北数",lc+"<span class=\"font_small\">敗</span>");
 insert(2,"勝率",wr+"%");
 insert(4,"Kill Ratio",kr);
-insert(4,"全体勝率",awr+"%");
+nfi.appendChild(p[4].cloneNode(true));
 function diff(i, t) {
 	var iad = Math.round((cd[i]-pcd[i])*100)/100;
 	var pm = "±";
@@ -141,14 +143,22 @@ function diff(i, t) {
 	}
 	t.innerHTML = t.innerHTML + " <span style=\"color:#ff0000;\" class=\"font_small\">(" + pm + iad + ")</span>";
 }
-var np1 = nfi.querySelectorAll('.block_playdata_01_text');
+var npv1 = nfi.querySelectorAll('.block_playdata_01_text');
 for (var i = 0; i < 7; i++) {
-	diff(i+1, np1[i]);
+	diff(i+1, npv1[i]);
 }
-var np2 = nfi.querySelectorAll('.block_playdata_02_text');
+var npk2 = nfi.querySelectorAll('.block_playdata_02_title');
+var npv2 = nfi.querySelectorAll('.block_playdata_02_text');
 for (var i = 0; i < 6; i++) {
-	diff(i+8, np2[i]);
+	diff(i+8, npv2[i]);
 }
+npk2[3].innerHTML = "<span class=\"font_90\">全キャスト勝率(合計)</span>";
+npv2[6].innerHTML = awr + "%";
+npk2[4].innerHTML = "<span class=\"font_90\">勝利数(合計)</span>";
+npv2[7].innerHTML = awc + "<span class=\"font_small\">勝</span>";
+npk2[5].innerHTML = "<span class=\"font_90\">敗北数(合計)</span>";
+npv2[8].innerHTML = alc + "<span class=\"font_small\">敗</span>";
+
 fi.parentNode.replaceChild(nfi, fi);
 
 }
