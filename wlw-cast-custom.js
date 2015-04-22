@@ -42,10 +42,31 @@ var kr = 0;
 if (wdc!=0) {
 	kr = Math.round(crc/wdc*100)/100;
 }
-// 全体勝利数 ... all win count
+
+// 全キャスト勝率 ... all win rate
+var awr = 0;
+// 全キャスト勝利数 ... all win count
 var awc = 0;
-// 全体敗北数 ... all lose count
+// 全キャスト敗北数 ... all lose count
 var alc = 0;
+// 各キャストの勝率 ... cast win rate array
+var cwra = [];
+// 各キャストの勝利数 ... cast win count array
+var cwca = [];
+// 各キャストの敗北数 ... cast lose count array
+var clca = [];
+// 表示する各キャストのID ... display cast id
+var dci = [0, 32, 1, 9, 2, 11, 13, 3, 7];
+// 表示する各キャストの名前 ... display cast name
+var dcn = ["サンドリヨン", "アシェンプテル", "吉備津彦", "美猴",
+		"ピーター・ザ・キッド", "シレネッタ", "ミクサ", "リトル・アリス",
+		"アイアン・フック"];
+// 初期化
+for (var i = 0; i < dci.length; i++) {
+	cwra[dci[i]] = 0;
+	cwca[dci[i]] = 0;
+	clca[dci[i]] = 0;
+}
 
 // キャストID ... cast id
 // 文字数圧縮のため、パラメータはcastを前提とする
@@ -76,8 +97,17 @@ if (d.cookie) {
 		var kv = c[i].trim().split("=");
 		var tpcd = unescape(kv[1]).split(":");
 		if (isFinite(kv[0])) {
-			awc += parseInt(tpcd[2]);
-			alc += parseInt(tpcd[3]);
+			var twc = parseInt(tpcd[2]);
+			var tlc = parseInt(tpcd[3]);
+			var twr = 0;
+			if ((twc+tlc)!=0) {
+				twr = Math.round(twc/(twc+tlc)*100*10)/10;
+			}
+			awc += twc;
+			alc += tlc;
+			cwra[kv[0]] = twr;
+			cwca[kv[0]] = twc;
+			clca[kv[0]] = tlc;
 		}
 		if (kv[0] == ci) {
 			pcd = tpcd;
@@ -88,15 +118,14 @@ if (d.cookie) {
 	}
 }
 
-// 全キャスト勝率 ... all win rate
-var awr = 0;
-// 全キャスト勝利数 ... all win count
 awc = awc - parseInt(pcd[2]) + wc;
-// 全キャスト敗北数 ... all lose count
 alc = alc - parseInt(pcd[3]) + lc;
 if ((awc+alc)!=0) {
 	awr = Math.round(awc/(awc+alc)*100*10)/10;
 }
+cwra[ci] = wr;
+cwca[ci] = wc;
+clca[ci] = lc;
 
 // 使用率、勝利数、キャスト別評価(平均)、勝利時(平均)、敗北時(平均)で比較
 if (cd[1]!=pcd[1] || cd[2]!=pcd[2] || cd[8]!=pcd[8] || cd[9]!=pcd[9] || cd[10]!=pcd[10]) {
@@ -130,7 +159,6 @@ function insert(i, t1, t2) {
 insert(2,"敗北数",lc+"<span class=\"font_small\">敗</span>");
 insert(2,"勝率",wr+"%");
 insert(4,"Kill Ratio",kr);
-nfi.appendChild(p[4].cloneNode(true));
 function diff(i, t) {
 	var iad = Math.round((cd[i]-pcd[i])*100)/100;
 	var pm = "±";
@@ -143,21 +171,18 @@ function diff(i, t) {
 	}
 	t.innerHTML = t.innerHTML + " <span style=\"color:#ff0000;\" class=\"font_small\">(" + pm + iad + ")</span>";
 }
-var npv1 = nfi.querySelectorAll('.block_playdata_01_text');
+var np1 = nfi.querySelectorAll('.block_playdata_01_text');
 for (var i = 0; i < 7; i++) {
-	diff(i+1, npv1[i]);
+	diff(i+1, np1[i]);
 }
-var npk2 = nfi.querySelectorAll('.block_playdata_02_title');
-var npv2 = nfi.querySelectorAll('.block_playdata_02_text');
+var np2 = nfi.querySelectorAll('.block_playdata_02_text');
 for (var i = 0; i < 6; i++) {
-	diff(i+8, npv2[i]);
+	diff(i+8, np2[i]);
 }
-npk2[3].innerHTML = "<span class=\"font_90\">全キャスト勝率(合計)</span>";
-npv2[6].innerHTML = awr + "%";
-npk2[4].innerHTML = "<span class=\"font_90\">勝利数(合計)</span>";
-npv2[7].innerHTML = awc + "<span class=\"font_small\">勝</span>";
-npk2[5].innerHTML = "<span class=\"font_90\">敗北数(合計)</span>";
-npv2[8].innerHTML = alc + "<span class=\"font_small\">敗</span>";
+insert(6, "全キャスト勝率", awr+"% <span class=\"font_small\">("+awc+"勝"+alc+"敗)</span>");
+for (var i = 0; i < dci.length; i++) {
+	insert(6, dcn[i], cwra[dci[i]]+"% <span class=\"font_small\">("+cwca[dci[i]]+"勝"+clca[dci[i]]+"敗)</span>");
+}
 
 fi.parentNode.replaceChild(nfi, fi);
 
