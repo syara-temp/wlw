@@ -181,7 +181,10 @@ for (var i = 0; i < 6; i++) {
 }
 insert(6, "全キャスト勝率", awr+"% <span class=\"font_small\">("+awc+"勝"+alc+"敗)</span>");
 for (var i = 0; i < dci.length; i++) {
-	insert(6, "<span class=\"font_90\">"+dcn[i]+"</span>", cwra[dci[i]]+"% <span class=\"font_small\">("+cwca[dci[i]]+"勝"+clca[dci[i]]+"敗)</span>");
+	// 試合数が0のキャストは表示しない
+	if ((cwca[dci[i]]+clca[dci[i]])>0) {
+		insert(6, "<span class=\"font_90\">"+dcn[i]+"</span>", cwra[dci[i]]+"% <span class=\"font_small\">("+cwca[dci[i]]+"勝"+clca[dci[i]]+"敗)</span>");		
+	}
 }
 
 fi.parentNode.replaceChild(nfi, fi);
