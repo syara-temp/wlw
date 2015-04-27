@@ -49,18 +49,24 @@ var awr = 0;
 var awc = 0;
 // 全キャスト敗北数 ... all lose count
 var alc = 0;
-// 各キャストの情報 ... cast data
-var cdata = [
-	{id:0, name:"サンドリヨン", wr:0, wc:0, lc:0},
-	{id:32, name:"アシェンプテル", wr:0, wc:0, lc:0},
-	{id:1, name:"吉備津彦", wr:0, wc:0, lc:0},
-	{id:9, name:"美猴", wr:0, wc:0, lc:0},
-	{id:2, name:"ピーター・ザ・キッド", wr:0, wc:0, lc:0},
-	{id:11, name:"シレネッタ", wr:0, wc:0, lc:0},
-	{id:13, name:"ミクサ", wr:0, wc:0, lc:0},
-	{id:3, name:"リトル・アリス", wr:0, wc:0, lc:0},
-	{id:7, name:"アイアン・フック", wr:0, wc:0, lc:0}
-];
+// 各キャストの勝率 ... cast win rate array
+var cwra = [];
+// 各キャストの勝利数 ... cast win count array
+var cwca = [];
+// 各キャストの敗北数 ... cast lose count array
+var clca = [];
+// 表示する各キャストのID ... display cast id
+var dci = [0, 32, 1, 9, 2, 11, 13, 3, 7];
+// 表示する各キャストの名前 ... display cast name
+var dcn = ["サンドリヨン", "アシェンプテル", "吉備津彦", "美猴",
+		"ピーター・ザ・キッド", "シレネッタ", "ミクサ", "リトル・アリス",
+		"アイアン・フック"];
+// 初期化
+for (var i = 0; i < dci.length; i++) {
+	cwra[dci[i]] = 0;
+	cwca[dci[i]] = 0;
+	clca[dci[i]] = 0;
+}
 
 // キャストID ... cast id
 // 文字数圧縮のため、パラメータはcastを前提とする
@@ -99,14 +105,9 @@ if (d.cookie) {
 			}
 			awc += twc;
 			alc += tlc;
-			for (var i = 0; i < cdata.length; i++) {
-				if (kv[0] == cdata[i]["id"]) {
-					cdata[i]["wr"] = twr;
-					cdata[i]["wc"] = twc;
-					cdata[i]["lc"] = tlc;
-					break;
-				}
-			}
+			cwra[kv[0]] = twr;
+			cwca[kv[0]] = twc;
+			clca[kv[0]] = tlc;
 		}
 		if (kv[0] == ci) {
 			pcd = tpcd;
@@ -122,19 +123,9 @@ alc = alc - parseInt(pcd[3]) + lc;
 if ((awc+alc)!=0) {
 	awr = Math.round(awc/(awc+alc)*100*10)/10;
 }
-for (var i = 0; i < cdata.length; i++) {
-	if (ci == cdata[i]["id"]) {
-		cdata[i]["wr"] = wr;
-		cdata[i]["wc"] = wc;
-		cdata[i]["lc"] = lc;
-		break;
-	}
-}
-cdata.sort(
-	function(a, b) {
-		return (a["wc"]+a["lc"]) < (b["wc"]+b["lc"]);
-	}
-);
+cwra[ci] = wr;
+cwca[ci] = wc;
+clca[ci] = lc;
 
 // 使用率、勝利数、キャスト別評価(平均)、勝利時(平均)、敗北時(平均)で比較
 if (cd[1]!=pcd[1] || cd[2]!=pcd[2] || cd[8]!=pcd[8] || cd[9]!=pcd[9] || cd[10]!=pcd[10]) {
@@ -189,10 +180,8 @@ for (var i = 0; i < 6; i++) {
 	diff(i+8, np2[i]);
 }
 insert(6, "全キャスト勝率", awr+"% <span class=\"font_small\">("+awc+"勝"+alc+"敗)</span>");
-for (var i = 0; i < cdata.length; i++) {
-	if ((cdata[i]["wc"]+cdata[i]["lc"])>0) {
-		insert(6, "<span class=\"font_90\">"+cdata[i]["name"]+"</span>", cdata[i]["wr"]+"% <span class=\"font_small\">("+cdata[i]["wc"]+"勝"+cdata[i]["lc"]+"敗)</span>");		
-	}
+for (var i = 0; i < dci.length; i++) {
+	insert(6, "<span class=\"font_90\">"+dcn[i]+"</span>", cwra[dci[i]]+"% <span class=\"font_small\">("+cwca[dci[i]]+"勝"+clca[dci[i]]+"敗)</span>");
 }
 
 fi.parentNode.replaceChild(nfi, fi);
