@@ -17,9 +17,8 @@ WLWブックマークレット
 
 本ブックマークレットのリリース情報は次の通りです。
 
-* Version 1.6 -> (後日リリース予定)
-  * 全キャスト勝率(全員)に新キャスト「リン」の勝率が反映されるように変更する。  
-  Issue #1にて、上記対応のためのキャストIDの情報募集中
+* Version 1.6 -> 2015.05.22 Released
+  * 全キャスト勝率(全員)に新キャスト「リン」の勝率が反映されるように変更しました。  
 * Version 1.5 -> 2015.04.27 Released
   * 試合数が0のキャストの勝率は非表示にしました。  
 * Version 1.4 -> 廃番(cdn.rawgit.comのキャッシュ問題のため)
@@ -51,9 +50,9 @@ WLWブックマークレット
 * 手順1. 適当なブックマークを作成します。
 * 手順2. ブックマークの編集でURL部分を次のように書き換えてください。記述ミスを防止するため、コピー&ペーストを推奨します。  
 
-(2015.04.25 Updated)  
+(2015.05.22 Updated)  
 ```
-javascript:(function(d,s){s=d.createElement('script');s.src='https://cdn.rawgit.com/syara-temp/wlw/1.5/wlw-cast-custom.min.js';d.body.appendChild(s);})(document)
+javascript:(function(d,s){s=d.createElement('script');s.src='https://cdn.rawgit.com/syara-temp/wlw/1.6/wlw-cast-custom.min.js';d.body.appendChild(s);})(document)
 ```
 * 手順3. [Wonderland.NET](https://wonderland-wars.net/)にアクセスし、マイキャスト> (キャスト選択)で全国対戦プレイデータの画面を表示してください。
 * 手順4. 手順1,2で作成したブックマークを実行してください。  
