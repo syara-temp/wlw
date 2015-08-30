@@ -17,6 +17,9 @@ WLWブックマークレット
 
 本ブックマークレットのリリース情報は次の通りです。
 
+* Version 1.9 -> 2015.08.30 Released
+  * 全キャスト勝率(全員)に新キャスト「大聖」と「かぐや」の勝率が反映されるように変更しました。  
+* Version 1.8 -> 廃番(cdn.rawgit.comのキャッシュ問題のため)
 * Version 1.7 -> 2015.06.28 Released
   * 全キャスト勝率(全員)に新キャスト「スカーレット」の勝率が反映されるように変更しました。  
 * Version 1.6 -> 2015.05.22 Released
@@ -52,9 +55,9 @@ WLWブックマークレット
 * 手順1. 適当なブックマークを作成します。
 * 手順2. ブックマークの編集でURL部分を次のように書き換えてください。記述ミスを防止するため、コピー&ペーストを推奨します。  
 
-(2015.06.28 Updated)  
+(2015.08.30 Updated)  
 ```
-javascript:(function(d,s){s=d.createElement('script');s.src='https://cdn.rawgit.com/syara-temp/wlw/1.7/wlw-cast-custom.min.js';d.body.appendChild(s);})(document)
+javascript:(function(d,s){s=d.createElement('script');s.src='https://cdn.rawgit.com/syara-temp/wlw/1.9/wlw-cast-custom.min.js';d.body.appendChild(s);})(document)
 ```
 * 手順3. [Wonderland.NET](https://wonderland-wars.net/)にアクセスし、マイキャスト> (キャスト選択)で全国対戦プレイデータの画面を表示してください。
 * 手順4. 手順1,2で作成したブックマークを実行してください。  
