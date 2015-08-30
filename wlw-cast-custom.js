@@ -59,7 +59,7 @@ var clca = [];
 // 表示する各キャストのID ... display cast id
 var dci = [0, 32, 1, 9, 41, 2, 11, 13, 45, 3, 7, 5, 8];
 // 表示する各キャストの名前 ... display cast name
-var dcn = ["サンドリヨン", "アシェンプテル", "吉備津彦", "美猴", "大聖"
+var dcn = ["サンドリヨン", "アシェンプテル", "吉備津彦", "美猴", "大聖",
 		"ピーター・ザ・キッド", "シレネッタ", "ミクサ", "リン",
 		"リトル・アリス", "アイアン・フック", "スカーレット", "かぐや"];
 // 初期化
@@ -167,7 +167,7 @@ function diff(i, t) {
 		pm = "+";
 	}
 	if (iad<0) {
-		pm = "?";
+		pm = "-";
 		iad = Math.abs(iad);
 	}
 	t.innerHTML = t.innerHTML + " <span style=\"color:#ff0000;\" class=\"font_small\">(" + pm + iad + ")</span>";
